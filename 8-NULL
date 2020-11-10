@@ -1,0 +1,40 @@
+1.
+SELECT name FROM teacher WHERE dept is null
+
+2.
+SELECT teacher.name, dept.name
+ FROM teacher INNER JOIN dept
+           ON (teacher.dept=dept.id)
+
+3.
+SELECT teacher.name, dept.name FROM teacher LEFT OUTER JOIN dept on teacher.dept=dept.id
+
+4.
+SELECT teacher.name, dept.name FROM dept LEFT OUTER JOIN teacher on dept.id=teacher.dept;
+
+5.
+SELECT name, coalesce(mobile, '07986 444 2266') FROM teacher
+
+6.
+SELECT teacher.name, coalesce(dept.name, 'None') FROM teacher LEFT OUTER JOIN dept on teacher.dept=dept.id
+
+7.
+SELECT COUNT(id), COUNT(mobile) FROM teacher
+
+8.
+SELECT dept.name, COUNT(teacher.id) FROM teacher LEFT OUTER JOIN dept on teacher.dept=dept.id GROUP BY dept.name
+
+9.
+SELECT name, 
+case
+    when dept=1 or dept=2 then 'Sci'
+    else 'Art'
+end concat FROM teacher
+
+10.
+SELECT name, 
+case
+    when dept=1 or dept=2 then 'Sci'
+    when dept=3 then 'Art'
+    else 'None'
+end concat FROM teacher

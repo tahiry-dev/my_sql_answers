@@ -1,0 +1,62 @@
+1.
+SELECT name FROM world
+  WHERE population >
+     (SELECT population FROM world
+      WHERE name='Russia')
+      
+2.
+SELECT name FROM world
+WHERE continent = 'Europe' AND gdp/population >
+   (SELECT gdp/population FROM world
+    WHERE name = 'United Kingdom')
+
+3.
+SELECT name, continent FROM world
+WHERE continent = 'South America' OR continent = 'Oceania'
+ORDER BY name
+
+4.
+SELECT name, population FROM world
+WHERE population > 
+   (SELECT name FROM world WHERE name = 'Canada') AND
+    population < 
+     (SELECT name FROM world WHERE name = 'Poland')
+     
+5.
+select name, concat(round(population*100/(select population from world where name='Germany')), '%') from world where continent='Europe'
+
+6.
+select name from world where gdp> all(select gdp from world where continent='Europe' and gdp>0)
+
+7.
+SELECT continent, name, area FROM world x
+  WHERE area >= ALL
+    (SELECT area FROM world y
+        WHERE x.continent=y.continent
+          AND area>0)
+
+8.
+SELECT continent, name FROM world x WHERE left(name, 2)<=all(SELECT left(name, 2) FROM world y WHERE x.continent=y.continent)
+
+9.
+SELECT name, continent, population FROM world WHERE continent NOT IN (SELECT distinct continent FROM world WHERE population>25000000)
+
+10.
+SELECT name, continent FROM world x WHERE population/3>all(SELECT population FROM world y WHERE x.continent=y.continent AND population>0 AND y.name NOT LIKE x.name)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
